@@ -1,23 +1,24 @@
-//package com.btp.ccproject.config;
-//
-//import com.github.dockerjava.api.DockerClient;
-//import com.github.dockerjava.core.DockerClientBuilder;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//
-//@Configuration
-//public class ConfigFile {
-//    @Bean
-//    DockerClient dockerClientDefault(){
-//        return DockerClientBuilder.getInstance().build();
-//    }
-//
-////    @Bean
-////    DockerClient dockerClientCustom(){
-////        return DockerClientBuilder.getInstance(
-////                        DefaultDockerClientConfig.createDefaultConfigBuilder()
-////                                .withDockerHost("tcp://localhost:2375")
-////                                .build()
-////                ).build();
-////    }
-//}
+package com.btp.ccproject.config;
+
+import org.springframework.stereotype.Component;
+
+import java.util.Scanner;
+
+@Component
+public class ConfigFile {
+    private String imageName;
+
+    public void readInputFromConsole() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Docker image name: ");
+        this.imageName = sc.next();
+    }
+
+    public String[] getCommand() {
+        return new String[] {
+                "docker", "run", "--rm",
+                "-v", "/var/run/docker.sock:/var/run/docker.sock",
+                "aquasec/trivy", "--quiet", "-f", "json", "image", imageName
+        };
+    }
+}
