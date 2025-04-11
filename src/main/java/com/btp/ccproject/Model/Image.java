@@ -10,12 +10,12 @@ import java.io.Serializable;
 public class Image implements Serializable {
     @Id
     private String name;
-    private int vulnerabilityScore;
+    private double vulnerabilityScore;
     @TimeToLive
     private long expiration;
 
 
-    public Image(String name, int vulnerabilityScore) {
+    public Image(String name, double vulnerabilityScore) {
         this.name = name;
         this.vulnerabilityScore = vulnerabilityScore;
         this.expiration = 86400L;
@@ -29,7 +29,7 @@ public class Image implements Serializable {
         this.name = name;
     }
 
-    public int getVulnerabilityScore() {
+    public double getVulnerabilityScore() {
         return vulnerabilityScore;
     }
 
