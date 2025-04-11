@@ -21,4 +21,7 @@ public class ConfigFile {
                 "aquasec/trivy", "--quiet", "-f", "json", "image", imageName
         };
     }
+    public String getImageName(){
+        return imageName;
+    }
 }
